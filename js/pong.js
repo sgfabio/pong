@@ -1,21 +1,23 @@
-
+let myObstacles = [];                            // Array to store obstacles objects                      // Log (014)
 
 
 //  myGameArea OBJECT *********************************************************
 
-  const myGameArea = {                                                                                     // Log (001)
+const myGameArea = {                                                                                      // Log (001)
   canvas: document.createElement("canvas"),
+  frames: 0, // Call updateGameArea() counter. We push new obstacles every n amount of updates.           // Log (015)
   start: function () {
     this.canvas.width = 480;
     this.canvas.height = 270;
     this.context = this.canvas.getContext("2d");
     document.body.insertBefore(this.canvas, document.body.childNodes[0]);
     this.interval = setInterval(updateGameArea, 20)     //call updateGameArea() every 20 miliseconds      // Log (004)
-  },
+},
 
 
   clear: function (){       // Clear the canvas each time updateGameArea() is called                      // Log (005)
-    this.context.clearRect(0, 0, this.canvas.width, this.canvas.length);
+    this.context.clearRect(0, 0, this.canvas.width, this.canvas.height);
+    //console.log("this.canvas.width= ", this.canvas.width, " this.canvas.height:", this.canvas.height);
 
   }
 
@@ -26,7 +28,7 @@
 
 // Component ClASS ************************************************************
 
-class Component{                                                                                          // Log (002)
+class Component{                                 // For the creation of player and the obstacles          // Log (002)
   constructor (width, height, color, x, y){
     this.width = width;
     this.height = height;
@@ -69,6 +71,7 @@ function updateGameArea(){                                                      
   myGameArea.clear();          // call to clear the canvas                                                // Log (006)
   player.newPos();             // call to update player's position                                        // Log (012)
   player.update();             // call to (re)draw player position                                        // Log (006)
+  updateObstacles();           // call to update obstacles                                                // Log (013)
   }
 
 
@@ -100,9 +103,36 @@ document.onkeydown = function(e) {                                              
 
 // onkeyup() FUNCTION *********************************************************
 
-document.onkeyup = function(e) {                                                                        // Log (011)
+document.onkeyup = function(e) {                                                                          // Log (011)
   player.speedX = 0;
   player.speedY = 0;
+}
+
+
+
+// updateObstacles() FUNCTION *************************************************
+
+function updateObstacles(){   //creates new obstacle object as Component class every 120 updates          // Log (016)
+
+  
+  for (i = 0 ; i < myObstacles.length ;  i += 1 ) {  // loop from 0 to myObstacle Array's lenght          // Log (017)
+    myObstacles[i].x += -1; // moves obstacle[i]'s position 1 point to the left;
+    myObstacles[i].update(); // re-draws canvas with obstacle[i] new position
+  }
+
+
+  myGameArea.frames += 1;
+  if ( myGameArea.frames % 120 === 0 ){  //create new obstacles every 120 updates
+    let x = myGameArea.canvas.width; // Obstacles height < Canvas width
+    let minHeight =  20;
+    let maxHeight = 200;
+    let height = Math.floor ( Math.random() * ( maxHeight - minHeight +1 ) + minHeight ); // random 20 < height < 200
+    let minGap =  50;
+    let maxGap = 200;
+    let gap    = Math.floor ( Math.random() * ( maxGap - minGap + 1 ) + minGap); // random 50 < gap < 200
+    myObstacles.push(new Component ( 10, height, "green", x, 0));   // (width, height, color, x, y)
+    myObstacles.push(new Component ( 10, x - height - gap, "green", x, height + gap));
+  }
 }
 
 
@@ -116,11 +146,11 @@ document.onkeyup = function(e) {                                                
 Step 01 = To create a immoble red rectangle in a canvas
 
 000. HTML and JS files created and linked
-001. MyGameArea instantiated and created a canvas in 2d context
-002. Component Class: Constructor() and update() methods created
+001. MyGameArea() instantiated and created a canvas in 2d context
+002. Component Class: Constructor() and update() methods created //blueprint for the creation of player and the obstacles objects
 003. Player Object instance created as a Component Class
-004. myGameArea >> SetInterval call to updateGameArea() created
-005. myGameArea >> clear() canvas created
+004. myGameArea() >> SetInterval call to updateGameArea() created
+005. myGameArea() >> clear() canvas created
 006. updateGameArea() function created
 007. myGameArea.start() call created - program Startup
 
@@ -132,9 +162,17 @@ Step 02 = Add movement to the red rectangle
 009. Component >> Added newPos() method to change this.X and this.Y based on speedX and speedY 
 010. onkeydown() function created to capture keys so to increase or to decrease speedY and speedX values
 011. onkeyup() function created to stop player's motion
-012. myGameArea >> call to update player's position create before player redraw
+012. myGameArea() >> call to update player's position create before player re-draw
 
 
+
+Step 03 = Adding obstacles
+
+013. Call a new function named updateObstacles() from the updateGameArea function:
+014. Array declaration for the array that will store obstacles objects
+015. Creation of "frames" attribute to count calls to updateGameArea(). We push new obstacles every n amount of updates.
+016. New function updateObstacles() - creates new obstacle object as Components class every 120 update calls.
+017. updateObstacles() >> New loop for updateObstacles - Obstables motion
 
 
 */
