@@ -19,8 +19,12 @@ const myGameArea = {                                                            
     this.context.clearRect(0, 0, this.canvas.width, this.canvas.height);
     //console.log("this.canvas.width= ", this.canvas.width, " this.canvas.height:", this.canvas.height);
 
-  }
+  },
 
+  stop: function(){
+    clearInterval(this.interval); // calls function clearInterval() to stop canvas clear and update       // Log (018)
+
+  },
 
 } //;
 
@@ -55,6 +59,33 @@ class Component{                                 // For the creation of player a
     console.log ("this.X =", this.x, " this.Y =", this.y)
   }
 
+
+
+  left(){                                                                                                 // Log (019)
+    return this.x;    // Returns left perimenter 
+  }
+
+  right (){                                                                                               // Log (019)
+    return this.x + this.width; // Returns right perimenter
+  }
+
+  top(){                                                                                                  // Log (019)
+    return this.y;  // Returns top perimeter 
+  }
+
+  bottom(){
+    return this.y + this.height; //returns bottom perimeter                                               // Log (019)
+  }
+
+  crashWith(obstacle){      //receives an obstacle object to compare with player's sides positions        // Log (020)
+    return !(
+      this.bottom() < obstacle.top()    || 
+      this.top()    > obstacle.bottom() ||
+      this.right()  < obstacle.left()   ||
+      this.left()   > obstacle.right()  
+    );
+  }
+
 }
 
 
@@ -72,6 +103,7 @@ function updateGameArea(){                                                      
   player.newPos();             // call to update player's position                                        // Log (012)
   player.update();             // call to (re)draw player position                                        // Log (006)
   updateObstacles();           // call to update obstacles                                                // Log (013)
+  checkGameOver();             // check if the game should stop due to a crash                            // Log (021)
   }
 
 
@@ -137,6 +169,16 @@ function updateObstacles(){   //creates new obstacle object as Component class e
 
 
 
+function checkGameOver(){ // check player crashing obstacle calls myGameArea method to myGameArea.stop()  // Log(021)
+  let crashed = myObstacles.some(function(obstacle){
+    return player.crashWith(obstacle);
+  })
+
+  if (crashed) {
+    myGameArea.stop();
+  }
+
+}
 
 
 
@@ -146,11 +188,11 @@ function updateObstacles(){   //creates new obstacle object as Component class e
 Step 01 = To create a immoble red rectangle in a canvas
 
 000. HTML and JS files created and linked
-001. MyGameArea() instantiated and created a canvas in 2d context
+001. MyGameArea instantiated and created a canvas in 2d context
 002. Component Class: Constructor() and update() methods created //blueprint for the creation of player and the obstacles objects
 003. Player Object instance created as a Component Class
-004. myGameArea() >> SetInterval call to updateGameArea() created
-005. myGameArea() >> clear() canvas created
+004. myGameArea >> SetInterval call to updateGameArea() created
+005. myGameArea >> clear() canvas created
 006. updateGameArea() function created
 007. myGameArea.start() call created - program Startup
 
@@ -162,7 +204,7 @@ Step 02 = Add movement to the red rectangle
 009. Component >> Added newPos() method to change this.X and this.Y based on speedX and speedY 
 010. onkeydown() function created to capture keys so to increase or to decrease speedY and speedX values
 011. onkeyup() function created to stop player's motion
-012. myGameArea() >> call to update player's position create before player re-draw
+012. myGameArea >> call to update player's position create before player re-draw
 
 
 
@@ -173,6 +215,20 @@ Step 03 = Adding obstacles
 015. Creation of "frames" attribute to count calls to updateGameArea(). We push new obstacles every n amount of updates.
 016. New function updateObstacles() - creates new obstacle object as Components class every 120 update calls.
 017. updateObstacles() >> New loop for updateObstacles - Obstables motion
+
+
+
+Step 04 = Crash check
+
+018. myGameArea >> implements clearInterval() method to stop clearing canvas and stop updating objects positions
+019. Component >> implements a left(), right(), top() and bottom() methods - returns objects perimeter positions   
+020. Component >> implements a crashWith() method - receives an obstacle object to compare with players  
+021. checkGameOver() funtion creation to check player crashing with obstacle; if crashed calls myGameArea method to stop clearing canvas and stop updating objects positions
+022. updateGameArea() calls function checkGameOver() to see if game should stop;
+
+
+Step 05 = Score
+
 
 
 */
