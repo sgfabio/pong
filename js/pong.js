@@ -21,10 +21,25 @@ const myGameArea = {                                                            
 
   },
 
+
+
+
   stop: function(){
     clearInterval(this.interval); // calls function clearInterval() to stop canvas clear and update       // Log (018)
 
   },
+
+
+
+  score: function(){                  //score function creation based on this.frames attribute            // Log (023)
+    let points = Math.floor( this.frames / 5);
+    this.context.font = "18px serif";
+    this.context.fillStyle = "black";
+    this.context.fillText( "Score: " + points, 350, 50 );
+
+  }
+
+
 
 } //;
 
@@ -104,6 +119,7 @@ function updateGameArea(){                                                      
   player.update();             // call to (re)draw player position                                        // Log (006)
   updateObstacles();           // call to update obstacles                                                // Log (013)
   checkGameOver();             // check if the game should stop due to a crash                            // Log (021)
+  myGameArea.score();          // calculate score                                                         // Log (023)
   }
 
 
@@ -228,7 +244,7 @@ Step 04 = Crash check
 
 
 Step 05 = Score
-
+023. myGameArea >> score function creation based on this.frames attribute
 
 
 */
