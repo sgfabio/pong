@@ -1,0 +1,34 @@
+I001 
+
+    Draw court elements:
+        Player A, 
+        Player B,
+        Ball,
+        Side Up,
+        Side Down,
+        
+    Implement movements:
+        Player Up, Down - Keyboard controlled
+        Player Up, Down - Keyboard controlled
+        Ball:  Up, Down, Left, Right - Random 
+
+I002
+    Implement Crash Detection 
+    Implement crash response to 
+        PlayerA - Ball
+        PlarerB - Ball
+        SideUp - Ball
+        SideDown - Ball
+
+
+I003
+    Create score
+
+
+I004
+    Draw other elements:
+        center line dashed  
+
+
+E005 (if time is available)
+
