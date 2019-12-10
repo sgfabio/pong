@@ -218,50 +218,50 @@ const playerBHandle = (keysB) =>{                                               
   
   
   // SCORE ********************************************************************
-  function updateScore (){
-    if (ball.x === 480){
-      playerA.score += 1;
-      ball.x = 240
+  function updateScore (){                                                                                             //L013
+    if (ball.x === 480){                                                                                               //L013
+      playerA.score += 1;                                                                                              //L013
+      ball.x = 240                                                                                                     //L013
       ball.hMov = !(ball.hMov);                                                                                        //L013
       ball.vMov = Math.random() > 0.5 ? true : false;                                                                  //L013 
-    } 
+    }                                                                                                                  //L013
 
-    if (ball.x === 0){
-      playerB.score += 1;
-      ball.x = 240
+    if (ball.x === 0){                                                                                                 //L013                                
+      playerB.score += 1;                                                                                              //L013
+      ball.x = 240                                                                                                     //L013
       ball.hMov = !(ball.hMov);                                                                                        //L013
       ball.vMov = Math.random() > 0.5 ? true : false;                                                                  //L013
     } 
     
-    myGameArea.context.font = "20px serif";
-    myGameArea.context.fillStyle = "black";
-    myGameArea.context.fillText("A: " + playerA.score , 100, 40);
-    myGameArea.context.fillText("B: " + playerB.score , 340, 40);
+    myGameArea.context.font = "20px serif";                                                                            //L013
+    myGameArea.context.fillStyle = "black";                                                                            //L013 
+    myGameArea.context.fillText("A: " + playerA.score , 100, 40);                                                      //L013
+    myGameArea.context.fillText("B: " + playerB.score , 340, 40);                                                      //L013
     
-    if (playerA.score === 10 || playerB.score === 10){
-      myGameArea.stop();
-    } 
-  }
+    if (playerA.score === 10 || playerB.score === 10){                                                                 //L013 
+      myGameArea.stop();                                                                                               //L013 
+    }                                                                                                                  //L013
+  }                                                                                                                    //L013
   
 
 
 
   // updateGame Area ************************************************************
-  function updateGameArea(){                                                                                             //L005                                    
-    myGameArea.clear();                                                                                                  //L005
-    playerA.newPos();         //Acquire new position before updating the object                                          //L009
-    playerA.update();                                                                                                    //L005
-    playerB.newPos();         //Acquire new position before updating the object                                          //L009
-    playerB.update();                                                                                                    //L005
-    sideUp.update();                                                                                                     //L008
-    sideDown.update()                                                                                                    //L008
-    updateBall();                                                                                                        //L010
-    checkBallHits();                                                                                                     //L011
-    updateScore();                                                                                                       //L013
+  function updateGameArea(){                                                                                           //L005                                    
+    myGameArea.clear();                                                                                                //L005
+    playerA.newPos();         //Acquire new position before updating the object                                        //L009
+    playerA.update();                                                                                                  //L005
+    playerB.newPos();         //Acquire new position before updating the object                                        //L009
+    playerB.update();                                                                                                  //L005
+    sideUp.update();                                                                                                   //L008
+    sideDown.update()                                                                                                  //L008
+    updateBall();                                                                                                      //L010
+    checkBallHits();                                                                                                   //L011
+    updateScore();                                                                                                     //L013
   }
   
   // START THE GAME HERE ********************************************************
-  myGameArea.start();                                                                                                    //L005
+  myGameArea.start();                                                                                                  //L005
   
   
   
