@@ -10,7 +10,7 @@ let myGameArea  = {                                                             
     this.canvas.height = 270;                                                                                          //L001
     this.context = this.canvas.getContext('2d')                                                                        //L001
     document.body.insertBefore(this.canvas, document.body.childNodes[0]);                                              //L001
-    this.interval = setInterval(updateGameArea, 5);
+    this.interval = setInterval(updateGameArea, 0.5);
   },
 
   clear: function (){                                                                                                  //L004
@@ -71,7 +71,33 @@ class Component {                                                               
     }                                                                                                                  //L009
   }
 
-}
+
+  left(){                                                                                                              //L011                                                                                   
+    return this.x;    // Returns left perimenter                                                                       //L011 
+  }
+
+  right (){                                                                                                            //L011
+    return this.x + this.width; // Returns right perimenter                                                            //L011
+  }
+
+  top(){                                                                                                               //L011
+    return this.y;  // Returns top perimeter                                                                           //L011
+  }
+
+  bottom(){                                                                                                            //L011
+    return this.y + this.height; //returns bottom perimeter                                                            //L011
+  }
+
+  crashWith(Obj){      //receives an obstacle object to compare with player's sides positions                         //L011
+    return !(                                                                                                          //L011
+      this.bottom() < Obj.top()    ||                                                                                 //L011
+      this.top()    > Obj.bottom() ||                                                                                 //L011
+      this.right()  < Obj.left()   ||                                                                                 //L011
+      this.left()   > Obj.right()                                                                                     //L011
+    );                                                                                                                 //L011
+  }                                                                                                                    //L011   
+
+}                                                                                                                      //L011
 
 
 
@@ -95,18 +121,18 @@ function updateGameArea(){                                                      
   sideUp.update();                                                                                                     //L008
   sideDown.update()                                                                                                    //L008
   updateBall();                                                                                                        //L010
-
+  checkBallHits();                                                                                                     //L011
 }
 
 
 
-// Player B Keyboard Down **************************************************************
+// Player A and B Keyboard Down ***********************************************
 
 document.onkeydown = function(e) {                                                                                     //L009
   // Arrow Keys >> Player A
   switch(e.keyCode) {
     case 38:
-      playerA.speedY -= 1;           // TO UP MOVEMENT                                                                 //L009
+      playerA.speedY -= 1;           // TO UP MOVEMENT            4                                                     //L009
       break;
     case 40:
       playerA.speedY += 1;           // TO DOWN MOVEMENT                                                               //L009
@@ -132,11 +158,13 @@ document.onkeydown = function(e) {                                              
       break;
     // "<"" and ">"" >> Test Ball's direction
     case 188:
-      ball.hMov = false;           // TO LEFT MOVEMENT                                                                 //L010
-      break;
-    case 190:
+      ball.hMov = false;           // TO LEFT MOVEMENT            4
       ball.vMov = true;           // TO RIGHT MOVEMENT                                                                 //L010
       break;
+    case 190:
+      ball.hMov = true;           // TO LEFT MOVEMENT            4
+      ball.vMov = false;           // TO RIGHT MOVEMENT                                                                 //L010
+    break;
   }
 }
 
@@ -155,15 +183,30 @@ document.onkeyup = function(e) {                                                
 
 function updateBall (){                                                                                                //L010
   myGameArea.frames += 1;                                                                                              //L010
-  if (myGameArea.frames % 2 === 0) {                                                                                  //L010
+  if (myGameArea.frames % 1 === 0) {                                                                                  //L010
     do {                                                                                                               //L010
       ball.hMov ? ball.x += 1 : ball.x -= 1;                                                                           //L010
-      ball.vMov ? ball.y += 1 : ball.y -= 1;                                                                           //L010
+      ball.vMov ? ball.y += 0.5 : ball.y -= 0.5;                                                                       //L010
       console.log("(ball.hMov: ", ball.hMov, ", ball.vMov: ", ball.vMov, ") - (ball.x: ", ball.x, ", ball.y: ", ball.y, " )" );
       ball.update();                                                                                                   //L010
     } while (stop)                                                                                                     //L010 | //L011
   }                                                                                                                    //L010
 }                                                                                                                      //L010
+
+
+// Check if Ball hits something  *************************************************
+
+function checkBallHits () {                                                                                            //L011
+  if (ball.crashWith(playerA)){                                                                                        //L011
+    ball.hMov = !(ball.hMov);                                                                                          //L011
+    ball.vMov = Math.random() > 0.5 ? true : false;                                                                    //L011
+  }                                                                                                                    //L011
+  if (ball.crashWith(playerB)){                                                                                        //L011
+    ball.hMov = !(ball.hMov);                                                                                          //L011
+    ball.vMov = Math.random() > 0.5 ? true : false;                                                                    //L011
+  }                                                                                                                    //L011
+
+}                     
 
 
 
