@@ -88,12 +88,12 @@ class Component {                                                               
     return this.y + this.height; //returns bottom perimeter                                                            //L011
   }
 
-  crashWith(Obj){      //receives an obstacle object to compare with player's sides positions                          //L011
+  crashWith(Obj){      //receives an obstacle object to compare with player's sides positions                         //L011
     return !(                                                                                                          //L011
-      this.bottom() < Obj.top()    ||                                                                                  //L011
-      this.top()    > Obj.bottom() ||                                                                                  //L011
-      this.right()  < Obj.left()   ||                                                                                  //L011
-      this.left()   > Obj.right()                                                                                      //L011
+      this.bottom() < Obj.top()    ||                                                                                 //L011
+      this.top()    > Obj.bottom() ||                                                                                 //L011
+      this.right()  < Obj.left()   ||                                                                                 //L011
+      this.left()   > Obj.right()                                                                                     //L011
     );                                                                                                                 //L011
   }                                                                                                                    //L011   
 
@@ -126,70 +126,56 @@ function updateGameArea(){                                                      
 
 
 
-// Player A and B Keyboard  ***************************************************
+// Player A and B Keyboard Down ***********************************************
 
-// Arrow Keys >> Player A
-const playerAHandle = (keysA) => {                                                                                     //L009 | //L012
-  switch(keysA.keyCode) {                                                                                              //L009 | //L012
-    case 38:                                                                                                           //L009 | //L012
-      playerA.speedY -= 1;           // TO UP MOVEMENT                                                                 //L009 | //L012
-      break;                                                                                                           //L009 | //L012
-    case 40:                                                                                                           //L009 | //L012
-      playerA.speedY += 1;           // TO DOWN MOVEMENT                                                               //L009 | //L012
-      break;                                                                                                           //L009 | //L012
-    case 37:                                                                                                           //L009 | //L012
-      playerA.speedX -= 1;           // TO LEFT MOVEMENT                                                               //L009 | //L012
-      break;                                                                                                           //L009 | //L012
-    case 39:                                                                                                           //L009 | //L012
-      playerA.speedX += 1;           // TO RIGHT MOVEMENT                                                              //L009 | //L012
-      break;                                                                                                           //L009 | //L012
-  }                                                                                                                    //L009 | //L012
-}                                                                                                                      //L009 | //L012
-
-// Numeric Keys >> Player B
-const playerBHandle = (keysB) =>{                                                                                      //L009 | //L012
-  switch(keysB.keyCode) {                                                                                              //L009 | //L012
-    case 104:                                                                                                          //L009 | //L012
-      playerB.speedY -= 1;           // TO UP MOVEMENT                                                                 //L009 | //L012
-      break;                                                                                                           //L009 | //L012
-    case 98:                                                                                                           //L009 | //L012
-      playerB.speedY += 1;           // TO DOWN MOVEMENT                                                               //L009 | //L012
-      break;                                                                                                           //L009 | //L012
-    case 100:                                                                                                          //L009 | //L012
-      playerB.speedX -= 1;           // TO LEFT MOVEMENT                                                               //L009 | //L012
-      break;                                                                                                           //L009 | //L012
-    case 102:                                                                                                          //L009 | //L012
-      playerB.speedX += 1;           // TO RIGHT MOVEMENT                                                              //L009 | //L012
-      break;                                                                                                           //L009 | //L012
-      // Manual override: Ball motion reversal
+document.onkeydown = function(e) {                                                                                     //L009
+  // Arrow Keys >> Player A
+  switch(e.keyCode) {
+    case 38:
+      playerA.speedY -= 1;           // TO UP MOVEMENT            4                                                     //L009
+      break;
+    case 40:
+      playerA.speedY += 1;           // TO DOWN MOVEMENT                                                               //L009
+      break;
+    case 37:
+      playerA.speedX -= 1;           // TO LEFT MOVEMENT                                                               //L009
+      break;
+    case 39:
+      playerA.speedX += 1;           // TO RIGHT MOVEMENT                                                              //L009
+      break;
+    // Numeric Keys >> Player B
+    case 104:
+      playerB.speedY -= 1;           // TO UP MOVEMENT                                                                 //L009
+      break;
+    case 98:
+      playerB.speedY += 1;           // TO DOWN MOVEMENT                                                               //L009
+      break;
+    case 100:
+      playerB.speedX -= 1;           // TO LEFT MOVEMENT                                                               //L009
+      break;
+    case 102:
+      playerB.speedX += 1;           // TO RIGHT MOVEMENT                                                              //L009
+      break;
+    // "<"" and ">"" >> Test Ball's direction
     case 188:
-      ball.hMov = false;             // TO LEFT MOVEMENT                                                               //L010 | //L012            
-      ball.vMov = true;              // TO RIGHT MOVEMENT                                                              //L010 | //L012
-      break;                                                                                                           //L010 | //L012
-    case 190:                                                                                                          //L010 | //L012
-      ball.hMov = true;              // TO LEFT MOVEMENT                                                               //L010 | //L012
-      ball.vMov = false;             // TO RIGHT MOVEMENT                                                              //L010 | //L012
-    break;                                                                                                             //L010 | //L012
+      ball.hMov = false;           // TO LEFT MOVEMENT            4
+      ball.vMov = true;           // TO RIGHT MOVEMENT                                                                 //L010
+      break;
+    case 190:
+      ball.hMov = true;           // TO LEFT MOVEMENT            4
+      ball.vMov = false;           // TO RIGHT MOVEMENT                                                                 //L010
+    break;
   }
 }
 
 
-
 // onkeyup() FUNCTION *********************************************************
-
-const onKeyUp = (keysAB) =>{                                                                                           //L009 | //L012
-  playerA.speedX = 0;                                                                                                  //L009 | //L012                                                                                                           //L009
-  playerA.speedY = 0;                                                                                                  //L009 | //L012
-  playerB.speedX = 0;                                                                                                  //L009 | //L012
-  playerB.speedY = 0;                                                                                                  //L009 | //L012
+document.onkeyup = function(e) {                                                                                       //L009
+  playerA.speedX = 0;                                                                                                  //L009                                                                                                           //L009
+  playerA.speedY = 0;                                                                                                  //L009
+  playerB.speedX = 0;                                                                                                  //L009
+  playerB.speedY = 0;                                                                                                  //L009
 }
-
-
-// Passes keydown events to respective handles
-document.addEventListener('keydown', playerAHandle);                                                                  //L012
-document.addEventListener('keydown', playerBHandle);                                                                  //L012
-document.addEventListener('keyup', onKeyUp);                                                                          //L012
-
 
 
 
@@ -245,7 +231,6 @@ L008. Added sideUp and sideDown screen elements
 L009. Added Keyboard Control for PlayerA and Player B
 L010. Add ball movement AND  myGameArea.stop() method
 L011. Ball hit detection implementation
-L012. Player A and PlayerB handling re-factoring to avoid conflict on keydowns simultaneusly
 
 
 */
