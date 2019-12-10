@@ -12,16 +12,16 @@ let myGameArea  = {                                                             
     document.body.insertBefore(this.canvas, document.body.childNodes[0]);                                              //L001
     this.interval = setInterval(updateGameArea, 0.5);
   },
-
+  
   clear: function (){                                                                                                  //L004
     this.context.clearRect( 0, 0, this.canvas.width, this.canvas.height);                                              //L004
   },
-
+  
   stop: function(){
     clearInterval(this.interval); // calls function clearInterval() to stop canvas clear and update                   //L010
-
+    
   },
-
+  
 };
 
 
@@ -43,6 +43,7 @@ class Component {                                                               
     this.speedY = 0;                                                                                                   //L006
     this.hMov = Math.random() > 0.5 ? true : false;                                                                    //L010
     this.vMov = Math.random() > 0.5 ? true : false;                                                                    //L010
+    this.score = 0;                                                                                                    //L013
 
   }
 
@@ -111,18 +112,6 @@ const sideDown = new Component ("SideDown", 480, 5, "black", 0,265, 0,0, 0, 265)
 console.log (playerA,playerB, ball, sideUp, sideDown);
 
 
-// updateGame Area ************************************************************
-function updateGameArea(){                                                                                             //L005                                    
-  myGameArea.clear();                                                                                                  //L005
-  playerA.newPos();         //Acquire new position before updating the object                                          //L009
-  playerA.update();                                                                                                    //L005
-  playerB.newPos();         //Acquire new position before updating the object                                          //L009
-  playerB.update();                                                                                                    //L005
-  sideUp.update();                                                                                                     //L008
-  sideDown.update()                                                                                                    //L008
-  updateBall();                                                                                                        //L010
-  checkBallHits();                                                                                                     //L011
-}
 
 
 
@@ -132,17 +121,17 @@ function updateGameArea(){                                                      
 const playerAHandle = (keysA) => {                                                                                     //L009 | //L012
   switch(keysA.keyCode) {                                                                                              //L009 | //L012
     case 38:                                                                                                           //L009 | //L012
-      playerA.speedY -= 1;           // TO UP MOVEMENT                                                                 //L009 | //L012
-      break;                                                                                                           //L009 | //L012
+    playerA.speedY -= 1;           // TO UP MOVEMENT                                                                   //L009 | //L012
+    break;                                                                                                             //L009 | //L012
     case 40:                                                                                                           //L009 | //L012
-      playerA.speedY += 1;           // TO DOWN MOVEMENT                                                               //L009 | //L012
-      break;                                                                                                           //L009 | //L012
+    playerA.speedY += 1;           // TO DOWN MOVEMENT                                                                 //L009 | //L012
+    break;                                                                                                             //L009 | //L012
     case 37:                                                                                                           //L009 | //L012
-      playerA.speedX -= 1;           // TO LEFT MOVEMENT                                                               //L009 | //L012
-      break;                                                                                                           //L009 | //L012
+    playerA.speedX -= 1;           // TO LEFT MOVEMENT                                                                 //L009 | //L012
+    break;                                                                                                             //L009 | //L012
     case 39:                                                                                                           //L009 | //L012
-      playerA.speedX += 1;           // TO RIGHT MOVEMENT                                                              //L009 | //L012
-      break;                                                                                                           //L009 | //L012
+    playerA.speedX += 1;           // TO RIGHT MOVEMENT                                                                //L009 | //L012
+    break;                                                                                                             //L009 | //L012
   }                                                                                                                    //L009 | //L012
 }                                                                                                                      //L009 | //L012
 
@@ -150,102 +139,142 @@ const playerAHandle = (keysA) => {                                              
 const playerBHandle = (keysB) =>{                                                                                      //L009 | //L012
   switch(keysB.keyCode) {                                                                                              //L009 | //L012
     case 104:                                                                                                          //L009 | //L012
-      playerB.speedY -= 1;           // TO UP MOVEMENT                                                                 //L009 | //L012
-      break;                                                                                                           //L009 | //L012
+    playerB.speedY -= 1;           // TO UP MOVEMENT                                                                   //L009 | //L012
+    break;                                                                                                             //L009 | //L012
     case 98:                                                                                                           //L009 | //L012
-      playerB.speedY += 1;           // TO DOWN MOVEMENT                                                               //L009 | //L012
-      break;                                                                                                           //L009 | //L012
+    playerB.speedY += 1;           // TO DOWN MOVEMENT                                                                 //L009 | //L012
+    break;                                                                                                             //L009 | //L012
     case 100:                                                                                                          //L009 | //L012
-      playerB.speedX -= 1;           // TO LEFT MOVEMENT                                                               //L009 | //L012
-      break;                                                                                                           //L009 | //L012
+    playerB.speedX -= 1;           // TO LEFT MOVEMENT                                                                 //L009 | //L012
+    break;                                                                                                             //L009 | //L012
     case 102:                                                                                                          //L009 | //L012
-      playerB.speedX += 1;           // TO RIGHT MOVEMENT                                                              //L009 | //L012
-      break;                                                                                                           //L009 | //L012
-      // Manual override: Ball motion reversal
+    playerB.speedX += 1;           // TO RIGHT MOVEMENT                                                                //L009 | //L012
+    break;                                                                                                             //L009 | //L012
+    // Manual override: Ball motion reversal
     case 188:
       ball.hMov = false;             // TO LEFT MOVEMENT                                                               //L010 | //L012            
       ball.vMov = true;              // TO RIGHT MOVEMENT                                                              //L010 | //L012
       break;                                                                                                           //L010 | //L012
-    case 190:                                                                                                          //L010 | //L012
+      case 190:                                                                                                        //L010 | //L012
       ball.hMov = true;              // TO LEFT MOVEMENT                                                               //L010 | //L012
       ball.vMov = false;             // TO RIGHT MOVEMENT                                                              //L010 | //L012
-    break;                                                                                                             //L010 | //L012
+      break;                                                                                                           //L010 | //L012
+    }
   }
-}
-
-
-
-// onkeyup() FUNCTION *********************************************************
-
-const onKeyUp = (keysAB) =>{                                                                                           //L009 | //L012
-  playerA.speedX = 0;                                                                                                  //L009 | //L012                                                                                                           //L009
-  playerA.speedY = 0;                                                                                                  //L009 | //L012
-  playerB.speedX = 0;                                                                                                  //L009 | //L012
-  playerB.speedY = 0;                                                                                                  //L009 | //L012
-}
-
-
-// Passes keydown events to respective handles
-document.addEventListener('keydown', playerAHandle);                                                                  //L012
-document.addEventListener('keydown', playerBHandle);                                                                  //L012
-document.addEventListener('keyup', onKeyUp);                                                                          //L012
-
-
-
-
-// Ball animation and phisics *************************************************
-
-function updateBall (){                                                                                                //L010
-  myGameArea.frames += 1;                                                                                              //L010
-  if (myGameArea.frames % 1 === 0) {                                                                                  //L010
-    do {                                                                                                               //L010
-      ball.hMov ? ball.x += 1 : ball.x -= 1;                                                                           //L010
-      ball.vMov ? ball.y += 0.5 : ball.y -= 0.5;                                                                       //L010
-      console.log("(ball.hMov: ", ball.hMov, ", ball.vMov: ", ball.vMov, ") - (ball.x: ", ball.x, ", ball.y: ", ball.y, " )" );
-      ball.update();                                                                                                   //L010
-    } while (stop)                                                                                                     //L010 | //L011
+  
+  
+  
+  // onkeyup() FUNCTION *********************************************************
+  
+  const onKeyUp = (keysAB) =>{                                                                                           //L009 | //L012
+    playerA.speedX = 0;                                                                                                  //L009 | //L012                                                                                                           //L009
+    playerA.speedY = 0;                                                                                                  //L009 | //L012
+    playerB.speedX = 0;                                                                                                  //L009 | //L012
+    playerB.speedY = 0;                                                                                                  //L009 | //L012
+  }
+  
+  
+  // Passes keydown events to respective handles
+  document.addEventListener('keydown', playerAHandle);                                                                  //L012
+  document.addEventListener('keydown', playerBHandle);                                                                  //L012
+  document.addEventListener('keyup', onKeyUp);                                                                          //L012
+  
+  
+  
+  
+  // Ball animation and phisics *************************************************
+  
+  function updateBall (){                                                                                              //L010
+    myGameArea.frames += 1;                                                                                            //L010
+    if (myGameArea.frames % 1 === 0) {                                                                                 //L010
+      do {                                                                                                             //L010
+        ball.hMov ? ball.x += 1 : ball.x -= 1;                                                                         //L010
+        ball.vMov ? ball.y += 0.5 : ball.y -= 0.5;                                                                     //L010
+        console.log("(ball.hMov: ", ball.hMov, ", ball.vMov: ", ball.vMov, ") - (ball.x: ", ball.x, ", ball.y: ", ball.y, " )" );
+        ball.update();                                                                                                 //L010
+      } while (stop)                                                                                                   //L010 | //L011
+    }                                                                                                                  //L010
   }                                                                                                                    //L010
-}                                                                                                                      //L010
+  
+  
+  // Check if Ball hits something  *************************************************
+  
+  function checkBallHits () {                                                                                          //L011
+    if (ball.crashWith(playerA)){                                                                                      //L011
+      ball.hMov = !(ball.hMov);                                                                                        //L011
+      ball.vMov = Math.random() > 0.5 ? true : false;                                                                  //L011
+    }                                                                                                                  //L011
+    if (ball.crashWith(playerB)){                                                                                      //L011
+      ball.hMov = !(ball.hMov);                                                                                        //L011
+      ball.vMov = Math.random() > 0.5 ? true : false;                                                                  //L011
+    }                                                                                                                  //L011
+    if (ball.crashWith(sideUp)){                                                                                       //L011
+      ball.vMov = !(ball.vMov);                                                                                        //L011
+    }                                                                                                                  //L011
+    if (ball.crashWith(sideDown)){                                                                                     //L011
+      ball.vMov = !(ball.vMov);                                                                                        //L011
+    }                                                                                                                  //L011
+  }                     
+  
+  
+  // SCORE ********************************************************************
+  function updateScore (){
+    if (ball.x === 480){
+      playerA.score += 1;
+      ball.x = 240
+      ball.hMov = !(ball.hMov);                                                                                        //L013
+      ball.vMov = Math.random() > 0.5 ? true : false;                                                                  //L013 
+    } 
+
+    if (ball.x === 0){
+      playerB.score += 1;
+      ball.x = 240
+      ball.hMov = !(ball.hMov);                                                                                        //L013
+      ball.vMov = Math.random() > 0.5 ? true : false;                                                                  //L013
+    } 
+    
+    myGameArea.context.font = "20px serif";
+    myGameArea.context.fillStyle = "black";
+    myGameArea.context.fillText("A: " + playerA.score , 100, 40);
+    myGameArea.context.fillText("B: " + playerB.score , 340, 40);
+    
+    if (playerA.score === 10 || playerB.score === 10){
+      myGameArea.stop();
+    } 
+  }
+  
 
 
-// Check if Ball hits something  *************************************************
 
-function checkBallHits () {                                                                                            //L011
-  if (ball.crashWith(playerA)){                                                                                        //L011
-    ball.hMov = !(ball.hMov);                                                                                          //L011
-    ball.vMov = Math.random() > 0.5 ? true : false;                                                                    //L011
-  }                                                                                                                    //L011
-  if (ball.crashWith(playerB)){                                                                                        //L011
-    ball.hMov = !(ball.hMov);                                                                                          //L011
-    ball.vMov = Math.random() > 0.5 ? true : false;                                                                    //L011
-  }                                                                                                                    //L011
-  if (ball.crashWith(sideUp)){                                                                                        //L011
-    ball.vMov = !(ball.vMov);                                                                                          //L011
-  }                                                                                                                    //L011
-  if (ball.crashWith(sideDown)){                                                                                        //L011
-    ball.vMov = !(ball.vMov);                                                                                          //L011
-  }                                                                                                                    //L011
-}                     
-
-
-
-
-
-// START THE GAME HERE ********************************************************
-myGameArea.start();                                                                                                    //L005
-
-
-
-
-//LOG
-/*
-L001 to L006 - Copy Canvas Basic structures
-L007. Implement name, xMin, YMin, xMax and yMax Component attributes to prevent canvas leaking
-L008. Added sideUp and sideDown screen elements
-L009. Added Keyboard Control for PlayerA and Player B
-L010. Add ball movement AND  myGameArea.stop() method
-L011. Ball hit detection implementation
-L012. Player A and PlayerB handling re-factoring to avoid conflict on keydowns simultaneusly
-
+  // updateGame Area ************************************************************
+  function updateGameArea(){                                                                                             //L005                                    
+    myGameArea.clear();                                                                                                  //L005
+    playerA.newPos();         //Acquire new position before updating the object                                          //L009
+    playerA.update();                                                                                                    //L005
+    playerB.newPos();         //Acquire new position before updating the object                                          //L009
+    playerB.update();                                                                                                    //L005
+    sideUp.update();                                                                                                     //L008
+    sideDown.update()                                                                                                    //L008
+    updateBall();                                                                                                        //L010
+    checkBallHits();                                                                                                     //L011
+    updateScore();                                                                                                       //L013
+  }
+  
+  // START THE GAME HERE ********************************************************
+  myGameArea.start();                                                                                                    //L005
+  
+  
+  
+  
+  //LOG
+  /*
+  L001 to L006 - Copy Canvas Basic structures
+  L007. Implement name, xMin, YMin, xMax and yMax Component attributes to prevent canvas leaking
+  L008. Added sideUp and sideDown screen elements
+  L009. Added Keyboard Control for PlayerA and Player B
+  L010. Add ball movement AND  myGameArea.stop() method
+  L011. Ball hit detection implementation
+  L012. Player A and PlayerB handling re-factoring to avoid conflict on keydowns simultaneusly
+  L013. Score creation
 
 */
