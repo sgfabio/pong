@@ -1,4 +1,5 @@
-I001 
+BRANCH MASTER *************************************************************************************************
+I001 START MVP design and elements:
 
     Draw court elements:
         Player A, 
@@ -7,30 +8,46 @@ I001
         Side Up,
         Side Down,
         
-    Implement movements:
+    Implement elements' motion:
         Player Up, Down - Keyboard controlled
         Player Up, Down - Keyboard controlled
         Ball:  Up, Down, Left, Right - Random 
 
-I002
+I002 Add MVP features:
     Implement Crash Detection 
     Implement crash response to 
         PlayerA - Ball
         PlarerB - Ball
         SideUp - Ball
         SideDown - Ball
-
  
 
-I003
+I003 = MVP Conclusion
     Create score
 
----------------------------------  DONE Above ||||  TO DO Below ----- As of 2019_12_09 --------------- 
 
-I004
-    Draw other elements:
-        center line dashed  
+I004 Draw/add other elements:
+    Title
+    Center line dashed
+    Background color
+    elements colors  
 
+---------------------------------  DONE Above /\  |||  TO DO Below \/   ----- As of 2019_12_11 ----------------
+DEPLOY
 
-E005 (if time is available)
+BRANCH GPAGES ***************************************************************************************************
 
+I005  
+    Defect fix: 20191210.0001, "Disable Player after ball hit"
+
+I006  Add more features:
+    Restart game pressing space bar 
+    Greet players, set score limit and start 
+    Winner feedback
+
+I007 Add media
+    Background music
+    Sound effects
+
+I008 Extras
+    Human Vs Machine game mode

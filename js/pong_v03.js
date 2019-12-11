@@ -1,7 +1,6 @@
 stop = false;                                                                                                          //L011
-bgColor = "black" ;                                                                                                    //L016
-fgColor = "white";                                                                                                     //L016
-document.body.style.backgroundColor = bgColor;                                                                         //L016
+backgroundColor = "black" 
+foreGroundColor = "white"
 
 // MyGameArea OBJECT **********************************************************
 let myGameArea  = {                                                                                                    //L001
@@ -109,11 +108,11 @@ class Component {                                                               
 
 // Objects: Player A, Player B and Ball ***************************************
 // (name, width, height, color, x, y, xMin, yMin, xMax, yMax )
-const playerA = new Component ("Player A", 5, 40, fgColor,  5,115,    5,5,   100,230 )                                 //L007
-const playerB = new Component ("Player B", 5, 40, fgColor,  470,115,  340,5, 475,230)                                  //L007
-const ball = new Component ("Ball", 10, 10, fgColor, 235,130, -5,-5, 485, 375)                                         //L007
-const sideUp = new Component ("SideUp", 480, 5, fgColor, 0,0, 0,0, 0,0)                                                //L008
-const sideDown = new Component ("SideDown", 480, 5, fgColor, 0,265, 0,0, 0, 265)                                       //L008
+const playerA = new Component ("Player A", 5, 40, "black",  5,115,    5,5,   100,230 )                                 //L007
+const playerB = new Component ("Player B", 5, 40, "black",  470,115,  340,5, 475,230)                                  //L007
+const ball = new Component ("Ball", 10, 10, "black", 235,130, -5,-5, 485, 375)                                         //L007
+const sideUp = new Component ("SideUp", 480, 5, "black", 0,0, 0,0, 0,0)                                                //L008
+const sideDown = new Component ("SideDown", 480, 5, "black", 0,265, 0,0, 0, 265)                                       //L008
 console.log (playerA,playerB, ball, sideUp, sideDown);
 
 
@@ -197,7 +196,7 @@ const playerBHandle = (keysB) =>{                                               
         ball.vMov ? ball.y += 0.5 : ball.y -= 0.5;                                                                     //L010
         console.log("(ball.hMov: ", ball.hMov, ", ball.vMov: ", ball.vMov, ") - (ball.x: ", ball.x, ", ball.y: ", ball.y, " )" );
         ball.update();                                                                                                 //L010
-      } while (stop)                                                                                                   //L010 | L011
+      } while (stop)                                                                                                   //L010 | //L011
     }                                                                                                                  //L010
   }                                                                                                                    //L010
   
@@ -222,8 +221,7 @@ const playerBHandle = (keysB) =>{                                               
   }                     
   
   
-  // SCORE **********************************************n
-
+  // SCORE ********************************************************************
   function updateScore (){                                                                                             //L013
     if (ball.x === 480){                                                                                               //L013
       playerA.score += 1;                                                                                              //L013
@@ -246,14 +244,14 @@ const playerBHandle = (keysB) =>{                                               
     myGameArea.context.moveTo(240, 30);                                                                               //L015
     myGameArea.context.lineTo(240, 270);                                                                              //L015
     // myGameArea.context.fillStyle = "black";                                                                        //L015
-    myGameArea.context.strokeStyle = fgColor;                                                                         //L015 | L016
+    myGameArea.context.strokeStyle = "black";                                                                         //L015
     myGameArea.context.stroke();                                                                                      //L015
 
-    myGameArea.context.font = "20px 'Press Start 2P'";   //Google Font selected                                        //L013 | L014  
-    myGameArea.context.fillStyle = fgColor;                                                                            //L013 | L016 
+    myGameArea.context.font = "20px 'Press Start 2P'";   //Google Font selected                                        //L013 | //L014  
+    myGameArea.context.fillStyle = "black";                                                                            //L013 
     myGameArea.context.fillText("A: " + playerA.score , 100, 60);                                                      //L013
     myGameArea.context.fillText("B: " + playerB.score , 340, 60);                                                      //L013
-    myGameArea.context.fillText("Pong Forever", 130, 30);   //Game Title                                               //L013 | L014
+    myGameArea.context.fillText("Pong Forever", 130, 30);   //Game Title                                               //L013 | //L014
 
     if (playerA.score === 10 || playerB.score === 10){                                                                 //L013 
       myGameArea.stop();                                                                                               //L013 
@@ -293,7 +291,6 @@ const playerBHandle = (keysB) =>{                                               
   L011. Ball hit detection implementation
   L012. Player A and PlayerB handling re-factoring to avoid conflict on keydowns simultaneusly
   L013. Score creation
-  L014. Font selection for HTML link <link href="https://fonts.googleapis.com/css?family=Press+Start+2P&display=swap" rel="stylesheet">
-  L015. Dashed Line draw in the field center
-  L016. Background and Foreground colors implementation
+  L014. Font selection
+  L015. Dashed Line
 */
