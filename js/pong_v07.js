@@ -1,8 +1,8 @@
-let stop = false;                                                                                                       //L011
-const bgColor = "black" ;                                                                                               //L016
-const fgColor = "white";                                                                                                //L016
+let stop = false;                                                                                                          //L011
+const bgColor = "black" ;                                                                                                    //L016
+const fgColor = "white";                                                                                                     //L016
 let playUntilScore = 10;
-let showStartMenu = true;                                                                                              //L017
+let showStartMenu = false;                                                                                               //L017
 
 document.body.style.backgroundColor = bgColor;                                                                         //L016
 
@@ -18,7 +18,6 @@ let myGameArea  = {                                                             
     this.context = this.canvas.getContext('2d')                                                                        //L001
     document.body.insertBefore(this.canvas, document.body.childNodes[0]);                                              //L001
     this.interval = setInterval(updateGameArea, 0.5);
-
   },
   
   clear: function (){                                                                                                  //L004
@@ -27,6 +26,7 @@ let myGameArea  = {                                                             
   
   stop: function(){
     clearInterval(this.interval); // calls function clearInterval() to stop canvas clear and update                    //L010
+    showStartMenu = true;                                                                                              //L017
     this.start();                                                                                                      //L017
   },
   
@@ -63,16 +63,16 @@ class Component {                                                               
     this.hMov = Math.random() > 0.5 ? true : false;                                                                    //L010
     this.vMov = Math.random() > 0.5 ? true : false;                                                                    //L010
     this.score = 0;                                                                                                    //L013
-    
+
   }
-  
+
   update(){                                               // For the creation of player and the obstacles              //L002
-    let ctx  = myGameArea.context;                                                                                   //L002
-    ctx.fillStyle = this.color;                                                                                      //L002
-    ctx.fillRect(this.x, this.y, this.width, this.height);                                                           //L002
-    
-  }
-  
+      let ctx  = myGameArea.context;                                                                                   //L002
+      ctx.fillStyle = this.color;                                                                                      //L002
+      ctx.fillRect(this.x, this.y, this.width, this.height);                                                           //L002
+
+    }
+
   newPos(){
     if ( this.x >= this.xMax ){                                                                                        //L009
       this.x = this.xMax -5;                                                                                           //L009
@@ -90,33 +90,33 @@ class Component {                                                               
       this.y = this.yMin + 5;                                                                                          //L009
     }                                                                                                                  //L009
   }
-  
-  
+
+
   left(){                                                                                                              //L011                                                                                   
     return this.x;    // Returns left perimenter                                                                       //L011 
   }
-  
+
   right (){                                                                                                            //L011
     return this.x + this.width; // Returns right perimenter                                                            //L011
   }
-  
+
   top(){                                                                                                               //L011
     return this.y;  // Returns top perimeter                                                                           //L011
   }
-  
+
   bottom(){                                                                                                            //L011
     return this.y + this.height; //returns bottom perimeter                                                            //L011
   }
-  
+
   crashWith(Obj){      //receives an obstacle object to compare with player's sides positions                          //L011
-  return !(                                                                                                          //L011
-    this.bottom() < Obj.top()    ||                                                                                  //L011
-    this.top()    > Obj.bottom() ||                                                                                  //L011
-    this.right()  < Obj.left()   ||                                                                                  //L011
-    this.left()   > Obj.right()                                                                                      //L011
+    return !(                                                                                                          //L011
+      this.bottom() < Obj.top()    ||                                                                                  //L011
+      this.top()    > Obj.bottom() ||                                                                                  //L011
+      this.right()  < Obj.left()   ||                                                                                  //L011
+      this.left()   > Obj.right()                                                                                      //L011
     );                                                                                                                 //L011
   }                                                                                                                    //L011   
-  
+
 }                                                                                                                      //L011
 
 
@@ -192,12 +192,12 @@ const playerBHandle = (keysB) =>{                                               
     playerB.speedY = 0;                                                                                                  //L009 | //L012
   }
   
-  
+
   // Play & Restart Game ******************************************************
   
-  
-  
-  
+
+
+
   // Passes keydown events to respective handles
   document.addEventListener('keydown', playerAHandle);                                                                  //L012
   document.addEventListener('keydown', playerBHandle);                                                                  //L012
@@ -242,7 +242,7 @@ const playerBHandle = (keysB) =>{                                               
   
   
   // SCORE **********************************************n
-  
+
   function updateScore (){                                                                                             //L013
     if (ball.x === 480){                                                                                               //L013
       playerA.score += 1;                                                                                              //L013
@@ -250,7 +250,7 @@ const playerBHandle = (keysB) =>{                                               
       ball.hMov = !(ball.hMov);                                                                                        //L013
       ball.vMov = Math.random() > 0.5 ? true : false;                                                                  //L013 
     }                                                                                                                  //L013
-    
+
     if (ball.x === 0){                                                                                                 //L013                                
       playerB.score += 1;                                                                                              //L013
       ball.x = 240                                                                                                     //L013
@@ -267,22 +267,21 @@ const playerBHandle = (keysB) =>{                                               
     // myGameArea.context.fillStyle = "black";                                                                        //L015
     myGameArea.context.strokeStyle = fgColor;                                                                         //L015 | L016
     myGameArea.context.stroke();                                                                                      //L015
-    
+
     myGameArea.context.font = "20px 'Press Start 2P'";   //Google Font selected                                        //L013 | L014  
     myGameArea.context.fillStyle = fgColor;                                                                            //L013 | L016 
     myGameArea.context.fillText("A: " + playerA.score , 100, 60);                                                      //L013
     myGameArea.context.fillText("B: " + playerB.score , 340, 60);                                                      //L013
     myGameArea.context.fillText("Pong Forever", 125, 30);   //Game Title                                               //L013 | L014
-    
+
     if (playerA.score === playUntilScore || playerB.score === playUntilScore){                                         //L013 
-      showStartMenu = true;                                                                                              //L017
       myGameArea.stop();                                                                                               //L013 
     }                                                                                                                  //L013
   }                                                                                                                    //L013
   
-  
-  
-  
+
+
+
   // updateGame Area ************************************************************
   function updateGameArea(){                                                                                           //L005                                    
     myGameArea.clear();                                                                                                //L005
@@ -304,7 +303,6 @@ const playerBHandle = (keysB) =>{                                               
     switch (startKey.keyCode){                                                                                         //L017                                                                                           
       case 32:  // Keycode for upper Space bar                                                                         //L017
       playerA.score = playerB.score = 0                                                                                //L017
-      showStartMenu = false;                                                                                          //L017
       myGameArea.stop();                                                                                               //L017    
         break;                                                                                                         //L017    
       case 187:  // Keycode for upper "+"                                                                              //L017                  

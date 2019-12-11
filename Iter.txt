@@ -32,22 +32,25 @@ I004 Draw/add other elements:
     Background color
     elements colors  
 
----------------------------------  DONE Above /\  |||  TO DO Below \/   ----- As of 2019_12_11 ----------------
-DEPLOY
-
 BRANCH GPAGES ***************************************************************************************************
 
-I005  
-    Defect fix: 20191210.0001, "Disable Player after ball hit"
+DEPLOY: Git Pages: https://sgfabio.github.io/pong/
 
-I006  Add more features:
+---------------------------------  DONE Above /\  |||  TO DO Below \/   ----- As of 2019_12_11 ----------------
+
+
+I005  Add more features:
     Restart game pressing space bar 
     Greet players, set score limit and start 
     Winner feedback
 
+I006  
+    Defect fix: 20191210.0001, "Disable Player after ball hit"
+    
 I007 Add media
     Background music
     Sound effects
 
 I008 Extras
     Human Vs Machine game mode
+    Git ReadMe documentation
