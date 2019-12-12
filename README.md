@@ -10,26 +10,20 @@ According Wikipedia:
 
 </header>
 <section>
-    <p>
         This little game intends to remember old things can be fun again.
          That is why it was recreated in Javascript  showcasing ES5 and ES6 functions where "less" is "more".
-    </p>
-    <p>
+
         It also happens the game is part of my learning effort so don't expect perfection. (BTW I'm open to suggestions to improve it as long as it remains simple and fun) 
-    </p>
+    
 </section>
 <section>
-    <p> <h1>
-        Instructions
-        </h1>
-    </p>
-    <p>
-        <h2>
-            Game started >> Options In the keyboard:
-        </h2>
-    </p>
-    
-
+## Instructions
+        
+#### See also this game working here at Git Pages:
+     [https://sgfabio.github.io/pong/](https://sgfabio.github.io/pong/)
+  
+## Game starts >> Options In the keyboard:
+        
 1. Press either addtion [+] or minus [-] operator keys to increase (up to 15) or to 
  decrease (down to 5) the total points a match can have until it finishes.
 
@@ -53,8 +47,5 @@ According Wikipedia:
     ![](/img/Pong_Forever_Final_scr.png)
 
 
-    ### See also this game working here at Git Pages:
-  
-  
-    [https://sgfabio.github.io/pong/](https://sgfabio.github.io/pong/)
+
   
