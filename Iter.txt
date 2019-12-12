@@ -43,9 +43,9 @@ I005  Add more features:
     Greet players, set score limit and start 
     Toggle background / Foreground colors 
     Winner feedback
----------------------------------  DONE Above /\  |||  TO DO Below \/   ----- As of 2019_12_12 ----------------
     Git ReadMe documentation
 
+---------------------------------  DONE Above /\  |||  TO DO Below \/   ----- As of 2019_12_12 ----------------
 I006  
     Defect fix: 20191210.0001, "Disable Player after ball hit"
     
