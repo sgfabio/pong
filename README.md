@@ -14,10 +14,12 @@ It also happens the game is part of my learning effort so don't expect perfectio
   
 
 ## Instructions
-        
-#### See also this game working here at Git Pages:
+
+
+#### See this game working here at Git Pages:
 [https://sgfabio.github.io/pong/](https://sgfabio.github.io/pong/)
-  
+
+
 ## Game starts >> Options In the keyboard:
         
 1. Press either addtion [+] or minus [-] operator keys to increase (up to 15) or to 
