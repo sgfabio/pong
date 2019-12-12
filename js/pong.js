@@ -1,4 +1,4 @@
-//V12
+//V13
 let stopBall = false;                                                                                                  //L011
 let scoreON = false;                                                                                                   //L019
 let bgColor = "black" ;                                                                                                //L016 | L018
@@ -12,6 +12,23 @@ let posMsgY = 100
 
 
 document.body.style.backgroundColor = bgColor;                                                                         //L016
+
+//Sound Object ****************************************************************
+
+function sound(src) {
+  this.sound = document.createElement("audio");
+  this.sound.src = src;
+  this.sound.setAttribute("preload", "auto");
+  this.sound.setAttribute("controls", "none");
+  this.sound.style.display = "none";
+  document.body.appendChild(this.sound);
+  this.play = function(){
+    this.sound.play();
+  }
+  this.stop = function(){
+    this.sound.pause();
+  }
+}
 
 
 
@@ -149,6 +166,7 @@ class Component {                                                               
 
 // Objects: Player A, Player B and Ball ***************************************
 // (name, width, height, color, x, y, xMin, yMin, xMax, yMax )
+const mySound = new sound("./sounds/bounce.wav");
 const playerA = new Component ("Player A", 5, 40, fgColor,  5,115,    5,5,   100,230 )                                 //L007
 const playerB = new Component ("Player B", 5, 40, fgColor,  470,115,  340,5, 475,230)                                  //L007
 const ball = new Component ("Ball", 10, 10, fgColor, 235,130, -5,-5, 485, 375)                                         //L007
@@ -246,17 +264,21 @@ const playerBHandle = (keysB) =>{                                               
   
   function checkBallHits () {                                                                                          //L011
     if (ball.crashWith(playerA)){                                                                                      //L011
+      mySound.play();
       ball.hMov = !(ball.hMov);                                                                                        //L011
       ball.vMov = Math.random() > 0.5 ? true : false;                                                                  //L011
     }                                                                                                                  //L011
     if (ball.crashWith(playerB)){                                                                                      //L011
+      mySound.play();
       ball.hMov = !(ball.hMov);                                                                                        //L011
       ball.vMov = Math.random() > 0.5 ? true : false;                                                                  //L011
     }                                                                                                                  //L011
     if (ball.crashWith(sideUp)){                                                                                       //L011
+      mySound.play();
       ball.vMov = !(ball.vMov);                                                                                        //L011
     }                                                                                                                  //L011
     if (ball.crashWith(sideDown)){                                                                                     //L011
+      mySound.play();
       ball.vMov = !(ball.vMov);                                                                                        //L011
     }                                                                                                                  //L011
   }                     

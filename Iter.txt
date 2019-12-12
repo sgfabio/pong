@@ -46,12 +46,13 @@ I005  Add more features:
     Git ReadMe documentation
 
 ---------------------------------  DONE Above /\  |||  TO DO Below \/   ----- As of 2019_12_12 ----------------
-I006  
-    Defect fix: 20191210.0001, "Disable Player after ball hit"
     
-I007 Add media
+I006 Add media
     Sound effects
     Background music
 
-I008 Extras
+I007 Extras
     Human Vs Machine game mode
+
+I008  
+    Defect fix: 20191210.0001, "Disable Player after ball hit"
