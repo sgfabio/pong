@@ -51,4 +51,8 @@ According Wikipedia:
     ### See the screenshot below:
     
     ![](/img/Pong_Forever_Final_scr.png)
-</section>
+
+
+    ### See also this game working here at Git Pages:
+    
+    ![](https://sgfabio.github.io/pong/)
