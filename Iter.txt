@@ -36,21 +36,22 @@ BRANCH GPAGES ******************************************************************
 
 DEPLOY: Git Pages: https://sgfabio.github.io/pong/
 
----------------------------------  DONE Above /\  |||  TO DO Below \/   ----- As of 2019_12_11 ----------------
 
 
 I005  Add more features:
     Restart game pressing space bar 
     Greet players, set score limit and start 
+---------------------------------  DONE Above /\  |||  TO DO Below \/   ----- As of 2019_12_12 ----------------
+    Change colors 
     Winner feedback
+    Git ReadMe documentation
 
 I006  
     Defect fix: 20191210.0001, "Disable Player after ball hit"
     
 I007 Add media
-    Background music
     Sound effects
+    Background music
 
 I008 Extras
     Human Vs Machine game mode
-    Git ReadMe documentation

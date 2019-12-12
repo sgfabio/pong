@@ -1,6 +1,6 @@
 let stop = false;                                                                                                       //L011
-const bgColor = "black" ;                                                                                               //L016
-const fgColor = "white";                                                                                                //L016
+let bgColor = "black" ;                                                                                               //L016
+let fgColor = "white";                                                                                                //L016
 let playUntilScore = 10;
 let showStartMenu = true;                                                                                              //L017
 
@@ -22,7 +22,8 @@ let myGameArea  = {                                                             
   },
   
   clear: function (){                                                                                                  //L004
-    this.context.clearRect( 0, 0, this.canvas.width, this.canvas.height);                                              //L004
+    this.context.fillStyle = bgColor;
+    this.context.fillRect( 0, 0, this.canvas.width, this.canvas.height);                                              //L004
   },
   
   stop: function(){
@@ -32,14 +33,15 @@ let myGameArea  = {                                                             
   
   showStMenu: function () {                                                                                          //L017
     this.context.fillStyle = fgColor;                                                                                //L017
-    this.context.fillRect(110, 120, 250, 60);                                                                        //L017
-    this.context.font = "16px 'Press Start 2P'";   //Google Font selected                                            //L017   
+    this.context.fillRect(90, 120, 300, 100);                                                                        //L017
+    this.context.font = "12px 'Press Start 2P'";   //Google Font selected                                            //L017   
     this.context.fillStyle = bgColor;                                                                                //L017  
-    this.context.fillText("Hit Space Bar", 130, 140);                                                                //L017 
-    this.context.fillText("  to Start", 130, 160);                                                                   //L017
+    this.context.fillText("Hello! Let's play ", 100, 140);                                                            //L017 
+    this.context.fillText("Hit Space Bar to Start", 100, 160);                                                        //L017
     this.context.font = "8px 'Press Start 2P'";   //Google Font selected                                             //L017   
-    this.context.fillStyle = bgColor;                                                                                //L017  
-    this.context.fillText("Score until: (+)" + playUntilScore + "(-)", 130, 180);                                    //L017
+    this.context.fillStyle = bgColor;                                                                               //L017  
+    this.context.fillText("Max score: (+)" + playUntilScore + "(-)", 100, 180);                                     //L017
+    this.context.fillText("Change Color: (c)", 100, 190);                                                           //L017
   },
 };
 
@@ -68,7 +70,7 @@ class Component {                                                               
   
   update(){                                               // For the creation of player and the obstacles              //L002
     let ctx  = myGameArea.context;                                                                                   //L002
-    ctx.fillStyle = this.color;                                                                                      //L002
+    ctx.fillStyle = fgColor;                                                                                      //L002
     ctx.fillRect(this.x, this.y, this.width, this.height);                                                           //L002
     
   }
@@ -123,6 +125,7 @@ class Component {                                                               
 
 // Objects: Player A, Player B and Ball ***************************************
 // (name, width, height, color, x, y, xMin, yMin, xMax, yMax )
+// const bkGnd = new Component ("canvasBackground", 480, 270, bgColor,  0,0,    0,0,   0,0);                              //L019
 const playerA = new Component ("Player A", 5, 40, fgColor,  5,115,    5,5,   100,230 )                                 //L007
 const playerB = new Component ("Player B", 5, 40, fgColor,  470,115,  340,5, 475,230)                                  //L007
 const ball = new Component ("Ball", 10, 10, fgColor, 235,130, -5,-5, 485, 375)                                         //L007
@@ -214,7 +217,7 @@ const playerBHandle = (keysB) =>{                                               
       do {                                                                                                             //L010
         ball.hMov ? ball.x += 1 : ball.x -= 1;                                                                         //L010
         ball.vMov ? ball.y += 0.5 : ball.y -= 0.5;                                                                     //L010
-        console.log("(ball.hMov: ", ball.hMov, ", ball.vMov: ", ball.vMov, ") - (ball.x: ", ball.x, ", ball.y: ", ball.y, " )" );
+        // console.log("(ball.hMov: ", ball.hMov, ", ball.vMov: ", ball.vMov, ") - (ball.x: ", ball.x, ", ball.y: ", ball.y, " )" );
         ball.update();                                                                                                 //L010
       } while (stop)                                                                                                   //L010 | L011
     }                                                                                                                  //L010
@@ -319,6 +322,17 @@ const playerBHandle = (keysB) =>{                                               
       case 109:  // Keycode for numeric pad "-""                                                                       //L017                    
         (playUntilScore > 5 ) ? playUntilScore -= 1: playUntilScore  ;                                                 //L017    
         break;                                                                                                         //L017
+      case 67:  // Keycode for "c" key to change colors                                                                //L017                    
+        if  (bgColor === "black"){
+            bgColor = "white";
+            fgColor = "black";
+        } else {
+            bgColor = "black";
+            fgColor = "white";
+        }
+        console.log("bgColor= ", bgColor, " | fgColor= " , fgColor);
+        myGameArea.stop();
+        break;                                                                                                         //L017
   };                                                                                                                   //L017
 };                                                                                                                     //L017
 
@@ -341,7 +355,7 @@ document.addEventListener('keydown', startMenuHandle);
   L014. Font selection for HTML link <link href="https://fonts.googleapis.com/css?family=Press+Start+2P&display=swap" rel="stylesheet">
   L015. Dashed Line draw in the field center
   L016. Background and Foreground colors implementation
-  L017. Greet players, Start / Restart game pressing space bar / Set score limit and start
-  L018.  & Winner feedback
+  L017. Greet players, Start / Restart game pressing space bar 
+  L018. Set score limit and start & Winner feedback
   L019.  
 */

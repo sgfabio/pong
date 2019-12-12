@@ -1,8 +1,15 @@
-let stop = false;                                                                                                       //L011
-const bgColor = "black" ;                                                                                               //L016
-const fgColor = "white";                                                                                                //L016
-let playUntilScore = 10;
+//V12
+let stopBall = false;                                                                                                  //L011
+let scoreON = false;                                                                                                   //L019
+let bgColor = "black" ;                                                                                                //L016 | L018
+let fgColor = "white";                                                                                                 //L016 | L018
+let playUntilScore = 10;                                                                                               //L013 
+let greet = true                                                                                                       //L017
+let winnerIs = "";                                                                                                     //L019
 let showStartMenu = true;                                                                                              //L017
+let posMsgX = 70
+let posMsgY = 100
+
 
 document.body.style.backgroundColor = bgColor;                                                                         //L016
 
@@ -22,25 +29,44 @@ let myGameArea  = {                                                             
   },
   
   clear: function (){                                                                                                  //L004
-    this.context.clearRect( 0, 0, this.canvas.width, this.canvas.height);                                              //L004
+    this.context.fillStyle = bgColor;
+    this.context.fillRect( 0, 0, this.canvas.width, this.canvas.height);                                              //L004
   },
   
   stop: function(){
     clearInterval(this.interval); // calls function clearInterval() to stop canvas clear and update                    //L010
-    this.start();                                                                                                      //L017
   },
   
-  showStMenu: function () {                                                                                          //L017
-    this.context.fillStyle = fgColor;                                                                                //L017
-    this.context.fillRect(110, 120, 250, 60);                                                                        //L017
-    this.context.font = "16px 'Press Start 2P'";   //Google Font selected                                            //L017   
-    this.context.fillStyle = bgColor;                                                                                //L017  
-    this.context.fillText("Hit Space Bar", 130, 140);                                                                //L017 
-    this.context.fillText("  to Start", 130, 160);                                                                   //L017
-    this.context.font = "8px 'Press Start 2P'";   //Google Font selected                                             //L017   
-    this.context.fillStyle = bgColor;                                                                                //L017  
-    this.context.fillText("Score until: (+)" + playUntilScore + "(-)", 130, 180);                                    //L017
+  showGreet: function (){
+    winnerIs = ""                                                                                                      //L019
+    showStartMenu = true;                                                                                              //L017
+    this.context.fillStyle = fgColor;                                                                                  //L017  
+    this.context.font = "20px 'Press Start 2P'";   //Google Font selected                                              //L017   
+    console.log("showGreet: ", posMsgX, " | ", posMsgY);
+    this.context.fillText("Hello! Let's play!", posMsgX, posMsgY);                                                     //L017
   },
+
+  showWinner: function (){                                                                                             //L019
+    greet = false;                                                                                                     //L019
+    showStartMenu = true;                                                                                              //L019
+    this.context.fillStyle = fgColor;                                                                                  //L019
+    this.context.font = "18px 'Press Start 2P'";   //Google Font selected                                              //L019   
+    console.log("ShowWinner: ", posMsgX, " | ", posMsgY);
+    this.context.fillText( "The winner is: " + winnerIs , posMsgX - 30, posMsgY);                                      //L019 
+  },
+
+  showStMenu: function () {                                                                                            //L017
+    this.context.fillStyle = fgColor;                                                                                  //L017
+    this.context.fillRect(90, 120, 300, 100);                                                                          //L017
+    this.context.font = "12px 'Press Start 2P'";   //Google Font selected                                              //L017   
+    this.context.fillStyle = bgColor;                                                                                  //L017  
+    this.context.fillText("Hit Space Bar to Start", 100, 160);                                                         //L017
+    this.context.font = "8px 'Press Start 2P'";   //Google Font selected                                               //L017   
+    this.context.fillStyle = bgColor;                                                                                  //L017  
+    this.context.fillText("Max score: (+)" + playUntilScore + "(-)", 100, 180);                                        //L017
+    this.context.fillText("Change Color: (c)", 100, 190);                                                              //L017
+  },
+
 };
 
 
@@ -66,10 +92,10 @@ class Component {                                                               
     
   }
   
-  update(){                                               // For the creation of player and the obstacles              //L002
+  update(){                                               // For the creation of player and the obstacles            //L002
     let ctx  = myGameArea.context;                                                                                   //L002
-    ctx.fillStyle = this.color;                                                                                      //L002
-    ctx.fillRect(this.x, this.y, this.width, this.height);                                                           //L002
+    ctx.fillStyle = fgColor;                                                                                         //L002 | L018
+    ctx.fillRect(this.x, this.y, this.width, this.height);                                                           //L002 | L018
     
   }
   
@@ -109,11 +135,11 @@ class Component {                                                               
   }
   
   crashWith(Obj){      //receives an obstacle object to compare with player's sides positions                          //L011
-  return !(                                                                                                          //L011
-    this.bottom() < Obj.top()    ||                                                                                  //L011
-    this.top()    > Obj.bottom() ||                                                                                  //L011
-    this.right()  < Obj.left()   ||                                                                                  //L011
-    this.left()   > Obj.right()                                                                                      //L011
+  return !(                                                                                                            //L011
+    this.bottom() < Obj.top()    ||                                                                                    //L011
+    this.top()    > Obj.bottom() ||                                                                                    //L011
+    this.right()  < Obj.left()   ||                                                                                    //L011
+    this.left()   > Obj.right()                                                                                        //L011
     );                                                                                                                 //L011
   }                                                                                                                    //L011   
   
@@ -192,12 +218,7 @@ const playerBHandle = (keysB) =>{                                               
     playerB.speedY = 0;                                                                                                  //L009 | //L012
   }
   
-  
-  // Play & Restart Game ******************************************************
-  
-  
-  
-  
+
   // Passes keydown events to respective handles
   document.addEventListener('keydown', playerAHandle);                                                                  //L012
   document.addEventListener('keydown', playerBHandle);                                                                  //L012
@@ -214,9 +235,9 @@ const playerBHandle = (keysB) =>{                                               
       do {                                                                                                             //L010
         ball.hMov ? ball.x += 1 : ball.x -= 1;                                                                         //L010
         ball.vMov ? ball.y += 0.5 : ball.y -= 0.5;                                                                     //L010
-        console.log("(ball.hMov: ", ball.hMov, ", ball.vMov: ", ball.vMov, ") - (ball.x: ", ball.x, ", ball.y: ", ball.y, " )" );
+        // console.log("(ball.hMov: ", ball.hMov, ", ball.vMov: ", ball.vMov, ") - (ball.x: ", ball.x, ", ball.y: ", ball.y, " )" );
         ball.update();                                                                                                 //L010
-      } while (stop)                                                                                                   //L010 | L011
+      } while (stopBall)                                                                                               //L010 | L011
     }                                                                                                                  //L010
   }                                                                                                                    //L010
   
@@ -245,19 +266,44 @@ const playerBHandle = (keysB) =>{                                               
   
   function updateScore (){                                                                                             //L013
     if (ball.x === 480){                                                                                               //L013
-      playerA.score += 1;                                                                                              //L013
+      (scoreON) ? playerA.score += 1 : playerA.score = playerA.score;                                                  //L013
       ball.x = 240                                                                                                     //L013
       ball.hMov = !(ball.hMov);                                                                                        //L013
       ball.vMov = Math.random() > 0.5 ? true : false;                                                                  //L013 
     }                                                                                                                  //L013
     
     if (ball.x === 0){                                                                                                 //L013                                
-      playerB.score += 1;                                                                                              //L013
+      (scoreON) ? playerB.score += 1 : playerB.score = playerB.score;                                                  //L013
       ball.x = 240                                                                                                     //L013
       ball.hMov = !(ball.hMov);                                                                                        //L013
       ball.vMov = Math.random() > 0.5 ? true : false;                                                                  //L013
     } 
     
+
+    
+    if (playerA.score === playUntilScore){                                                                             //L019
+        winnerIs = playerA.name;                                                                                       //L019
+        console.log("winnerIs: ", winnerIs);                                                                           //L019
+        myGameArea.showWinner();                                                                                       //L019
+        myGameArea.showStMenu();                                                                                       //L019
+        scoreON = false;
+    }                                                                                                                //L019
+    
+    if (playerB.score === playUntilScore){                                                                             //L019
+        winnerIs = playerB.name;                                                                                         //L019
+        console.log("winnerIs: ", winnerIs);                                                                             //L019
+        myGameArea.showWinner();                                                                                         //L019 
+        myGameArea.showStMenu();                                                                                         //L013 
+        scoreON = false;
+    }                                                                                                                  //L019
+}                                                                                                                    //L013
+
+
+
+
+// updateGame Area ************************************************************
+function updateGameArea(){                                                                                           //L005                                    
+    myGameArea.clear();                                                                                                //L005
     //Title, Court, Score...
     //Center field line - dashed
     myGameArea.context.beginPath();                                                                                   //L015
@@ -273,19 +319,6 @@ const playerBHandle = (keysB) =>{                                               
     myGameArea.context.fillText("A: " + playerA.score , 100, 60);                                                      //L013
     myGameArea.context.fillText("B: " + playerB.score , 340, 60);                                                      //L013
     myGameArea.context.fillText("Pong Forever", 125, 30);   //Game Title                                               //L013 | L014
-    
-    if (playerA.score === playUntilScore || playerB.score === playUntilScore){                                         //L013 
-      showStartMenu = true;                                                                                              //L017
-      myGameArea.stop();                                                                                               //L013 
-    }                                                                                                                  //L013
-  }                                                                                                                    //L013
-  
-  
-  
-  
-  // updateGame Area ************************************************************
-  function updateGameArea(){                                                                                           //L005                                    
-    myGameArea.clear();                                                                                                //L005
     playerA.newPos();         //Acquire new position before updating the object                                        //L009
     playerA.update();                                                                                                  //L005
     playerB.newPos();         //Acquire new position before updating the object                                        //L009
@@ -294,18 +327,31 @@ const playerBHandle = (keysB) =>{                                               
     sideDown.update()                                                                                                  //L008
     updateBall();                                                                                                      //L010
     checkBallHits();                                                                                                   //L011
-    updateScore();                                                                                                     //L013
+    updateScore();                                                                                                     //L013 
+  
+    if (greet) {
+      myGameArea.showGreet();
+    }
+    
     if (showStartMenu){
       myGameArea.showStMenu();
     }
+    
+    if (winnerIs){
+      myGameArea.showWinner();
+    } 
   }
   
   const startMenuHandle = (startKey) => {                                                                              //L017                                                                                       
     switch (startKey.keyCode){                                                                                         //L017                                                                                           
       case 32:  // Keycode for upper Space bar                                                                         //L017
       playerA.score = playerB.score = 0                                                                                //L017
-      showStartMenu = false;                                                                                          //L017
-      myGameArea.stop();                                                                                               //L017    
+      greet = false;                                                                                                   //L019
+      showStartMenu = false;                                                                                           //L017
+      winnerIs = "";                                                                                                   //L019
+      myGameArea.stop();                                                                                               //L019
+      scoreON = true;                                                                                                  //L019
+      myGameArea.start();                                                                                              //L017    
         break;                                                                                                         //L017    
       case 187:  // Keycode for upper "+"                                                                              //L017                  
         (playUntilScore < 15) ? playUntilScore += 1: playUntilScore  ;                                                 //L017    
@@ -319,6 +365,17 @@ const playerBHandle = (keysB) =>{                                               
       case 109:  // Keycode for numeric pad "-""                                                                       //L017                    
         (playUntilScore > 5 ) ? playUntilScore -= 1: playUntilScore  ;                                                 //L017    
         break;                                                                                                         //L017
+      case 67:  // Keycode for "c" key to change colors                                                                //L018
+        if  (bgColor === "black"){                                                                                     //L018
+            bgColor = "white";                                                                                         //L018
+            fgColor = "black";                                                                                         //L018
+        } else {                                                                                                       //L018
+            bgColor = "black";                                                                                         //L018
+            fgColor = "white";                                                                                         //L018
+        }                                                                                                              //L018
+        console.log("bgColor= ", bgColor, " | fgColor= " , fgColor);                                                   //L018
+        // myGameArea.stop();                                                                                          //L018
+        break;                                                                                                         //L018
   };                                                                                                                   //L017
 };                                                                                                                     //L017
 
@@ -341,7 +398,7 @@ document.addEventListener('keydown', startMenuHandle);
   L014. Font selection for HTML link <link href="https://fonts.googleapis.com/css?family=Press+Start+2P&display=swap" rel="stylesheet">
   L015. Dashed Line draw in the field center
   L016. Background and Foreground colors implementation
-  L017. Greet players, Start / Restart game pressing space bar 
-  L018. Set score limit and start & Winner feedback
-  L019.  
+  L017. Greet players, Start / Restart game pressing space bar / Set score limit and start 
+  L018.  Toggle Background / Foreground colors
+  L019.  Greet / Start / Restart refactor + Winner feedback
 */
