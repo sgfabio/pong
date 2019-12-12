@@ -41,9 +41,9 @@ DEPLOY: Git Pages: https://sgfabio.github.io/pong/
 I005  Add more features:
     Restart game pressing space bar 
     Greet players, set score limit and start 
----------------------------------  DONE Above /\  |||  TO DO Below \/   ----- As of 2019_12_12 ----------------
-    Change colors 
+    Toggle background / Foreground colors 
     Winner feedback
+---------------------------------  DONE Above /\  |||  TO DO Below \/   ----- As of 2019_12_12 ----------------
     Git ReadMe documentation
 
 I006  
