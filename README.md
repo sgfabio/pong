@@ -16,7 +16,7 @@ It also happens the game is part of my learning effort so don't expect perfectio
 ## Instructions
 
 
-#### See this game working here at Git Pages:
+####  _See this game working here at Git Pages:_
 [https://sgfabio.github.io/pong/](https://sgfabio.github.io/pong/)
 
 
