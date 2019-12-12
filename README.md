@@ -15,7 +15,7 @@ According Wikipedia:
          That is why it was recreated in Javascript  showcasing ES5 and ES6 functions where "less" is "more".
     </p>
     <p>
-        It also happens the game is part of my learning effort so don't expect perfection. (BTW I'm open to suggestions to improve it as long as it remais simple and fun) 
+        It also happens the game is part of my learning effort so don't expect perfection. (BTW I'm open to suggestions to improve it as long as it remains simple and fun) 
     </p>
 </section>
 <section>
