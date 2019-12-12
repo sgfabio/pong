@@ -56,5 +56,5 @@ According Wikipedia:
     ### See also this game working here at Git Pages:
   
   
-     <a target=”_blank" href="https://sgfabio.github.io/pong/">https://sgfabio.github.io/pong/</a>
+     <a href="https://sgfabio.github.io/pong/" target="_blank">https://sgfabio.github.io/pong/</a>
   
