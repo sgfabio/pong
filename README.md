@@ -1,11 +1,9 @@
 # Pong Game
-<br>
 According Wikipedia:
-<i> Pong is one of the earliest arcade video games. It is a table tennis sports game featuring simple two-dimensional graphics. 
-The game was originally manufactured by Atari, which released it in 1972. Allan Alcorn created Pong as a training exercise assigned to him by Atari co-founder Nolan Bushnell. Bushnell based the idea on an electronic ping-pong game included in the Magnavox Odyssey; Magnavox later sued Atari for patent infringement. Bushnell and Atari co-founder Ted Dabney were surprised by the quality of Alcorn's work and decided to manufacture the game.
-<br>Source:  <a href="https://en.wikipedia.org/wiki/Pong:">Pong Game at Wikipedia</a></i>
+"_Pong is one of the earliest arcade video games. It is a table tennis sports game featuring simple two-dimensional graphics. 
+The game was originally manufactured by Atari, which released it in 1972. Allan Alcorn created Pong as a training exercise assigned to him by Atari co-founder Nolan Bushnell. Bushnell based the idea on an electronic ping-pong game included in the Magnavox Odyssey; Magnavox later sued Atari for patent infringement. Bushnell and Atari co-founder Ted Dabney were surprised by the quality of Alcorn's work and decided to manufacture the game._"
 
-<br><br>
+####  _Source:_[ Pong Game at Wikipedia](https://sgfabio.github.io/pong/)
 
 This little game intends to remember old things can be fun again.
 That is why it was recreated in Javascript  showcasing ES5 and ES6 functions where "less" is "more".
